@@ -1,6 +1,5 @@
 /*
- * PROGRAMA FUNCIONAL AL 29/12/2021
- * teensy 4.1 
+ *  * teensy 4.1 & TEENSY ++ 2.0
  * Opera el RTC, solo funciona en teensy 3.0 y adelante
  * JASAVM 
  */
@@ -23,8 +22,10 @@ void setup() {
     while (!SerialUSB);  // Wait for Arduino Serial Monitor to open
      delay(100);
 
-    // set the Time library to use Teensy 3.0's RTC to keep time
-    SetTimeInit();
+    #ifdef TEENSY4
+        // set the Time library to use Teensy 3.0's RTC to keep time
+        SetTimeInit();
+    #endif
     
     SerialUSB.println("Iniciando... "); 
     Serial.println("\n" " " __DATE__ "_" __TIME__);
@@ -45,31 +46,26 @@ void setup() {
 
 void loop() {
   
-    unsigned long currentMillis = millis();
-    if (currentMillis - previousMillis >= interval) {
-      previousMillis = currentMillis;
-              digitalClockDisplay();
-              //SerialUSB.println(Teensy3Clock.get());  
-    }//end if
-    //SerialUSB.println(" ");
-    //delayMicroseconds(10);
-
-    delay(100);
+    #ifdef TEENSY4
+        unsigned long currentMillis = millis();
+        if (currentMillis - previousMillis >= interval) {
+          previousMillis = currentMillis;
+                  digitalClockDisplay();
+                  //SerialUSB.println(Teensy3Clock.get());  
+        }
+        //SerialUSB.println(" ");
+    #endif
+    
     //readCommands();     // read the commands:
 
-    uint32_t addr1 = address_mode();
-    uint32_t addr2 = address_mode();
-   
-    if(addr1 == addr2){
-        printNumberOp(counterOp);
-        printAddr(132);
-        data_mode();
-        control_mode();
-        enableDisable_mem();
-        selection_mem();
-        //delay(500);
-    }
-    
-    counterOp++;
+    printNumberOp(counterOp);
+    address_mode();
+    data_mode();
+    control_mode();
+    enableDisable_mem();
+    selection_mem();
+    delay(100);
     SerialUSB.println();  
+    counterOp++;
+
 }

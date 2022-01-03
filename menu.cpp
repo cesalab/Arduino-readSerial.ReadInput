@@ -9,5 +9,5 @@ void printMenu()
     SerialUSB.println("   1 - Capturar Datos");   
     SerialUSB.println("   2 - Modo Manual");   
     SerialUSB.println("   3 - Ayuda   ");
-    SerialUSB.println("   m - Mostrar Menu");
+    SerialUSB.println("   m - Mostrar Menu\n");
 }

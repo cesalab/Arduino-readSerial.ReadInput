@@ -1,6 +1,11 @@
 
 #include "Arduino.h"
+#include "config.h"
+
+#ifdef TEENSY4
 #include <TimeLib.h>
+
+time_t getTeensy3Time();
 
 void printDigits(int digits){
   // utility function for digital clock display: prints preceding colon and leading 0
@@ -9,7 +14,6 @@ void printDigits(int digits){
     SerialUSB.print('0');
   SerialUSB.print(digits);
 }
-
 
 void digitalClockDisplay() {
   // digital clock display of the time
@@ -67,3 +71,5 @@ void SetTimeInit(){
       }
     }
 }
+
+#endif

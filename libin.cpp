@@ -9,7 +9,7 @@ void printNumberOp(uint32_t numberOp){
   if(numberOp < 1000) SerialUSB.print('0');
   if(numberOp < 10000) SerialUSB.print('0');
   if(numberOp < 100000) SerialUSB.print('0');
-  if(numberOp < 1000000) SerialUSB.print('0');
+  //if(numberOp < 1000000) SerialUSB.print('0');
   SerialUSB.print(numberOp);  
   SerialUSB.print("_"); 
   
@@ -36,7 +36,6 @@ uint32_t readAddr(uint8_t pinStart, uint8_t pinFinal) {
       data |= mask;
     }
     mask = mask << 1;
-    
   }
   return data;
 }
@@ -44,6 +43,7 @@ uint32_t readAddr(uint8_t pinStart, uint8_t pinFinal) {
 
 int address_mode(){
       uint32_t b = readAddr(ADDR0, ADDR19);
+      printAddr(b);
       return b;
 }
 
