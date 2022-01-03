@@ -10,6 +10,7 @@ void printDigits(int digits){
   SerialUSB.print(digits);
 }
 
+
 void digitalClockDisplay() {
   // digital clock display of the time
   SerialUSB.print(hour());
@@ -29,6 +30,7 @@ time_t getTeensy3Time()
   return Teensy3Clock.get();
 }
 
+
 /*  code to process time sync messages from the Serial8 port   */
 #define TIME_HEADER  "T"   // Header tag for Serial8 time sync message
 
@@ -44,4 +46,24 @@ unsigned long processSyncMessage() {
      }
   }
   return pctime;
+}
+
+void SetTimeInit(){
+  setSyncProvider(getTeensy3Time);
+  if (timeStatus()!= timeSet) {
+      SerialUSB.println("Unable to sync with the RTC");
+    } else {
+      SerialUSB.println("RTC has set the system time");
+    }
+    digitalClockDisplay();
+
+    delay(100);
+
+    if (SerialUSB.available()) {
+            time_t t = processSyncMessage();
+         if (t != 0) {
+            Teensy3Clock.set(t); // set the RTC
+            setTime(t);
+      }
+    }
 }

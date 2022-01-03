@@ -10,7 +10,8 @@ char *strtok( char *str1, const char *str2 );
 
 
 String readCommands(){
-  // read the incoming byte:
+    if (SerialUSB.available()){
+           // read the incoming byte:
           incomingString = Serial.readString() ;
           //Serial.print("I received: ");
           //Serial.println(stringSplit[0]);
@@ -36,15 +37,15 @@ String readCommands(){
           //Serial.print("Ultimo valor de array util = ");   Serial.print (--i);    
           //Serial.println("\n");
           return stringSplit[0];
-          
+    }    
 }
 
 
 void limpiarComandos(){
-  //Serial.println("limpiando registros...");
-  for(uint8_t i = 0; i < MAX_COMMANDS; i++)  { 
-      stringSplit[i] = "";    //LIMPIA REGISTRO
-      //Serial.print("  stringSplit["); Serial.print(i); Serial.print("]: "); Serial.println(stringSplit[i]);
-  }
-  //Serial.println("limpiado listo...");     
+    //Serial.println("limpiando registros...");
+    for(uint8_t i = 0; i < MAX_COMMANDS; i++)  { 
+        stringSplit[i] = "";    //LIMPIA REGISTRO
+        //Serial.print("  stringSplit["); Serial.print(i); Serial.print("]: "); Serial.println(stringSplit[i]);
+    }
+    //Serial.println("limpiado listo...");     
 }

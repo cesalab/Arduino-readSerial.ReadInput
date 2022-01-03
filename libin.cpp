@@ -1,6 +1,4 @@
 #include "Arduino.h"
-#include "enums.h"
-#include "gpio.h"
 #include "config.h"
 
 
